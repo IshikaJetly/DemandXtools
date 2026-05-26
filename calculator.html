@@ -11,16 +11,44 @@
     background: #f0f2f5;
     font-size: 13px;
     color: #2c2c2c;
-    overflow-y: auto;
+    height: 100%;
+    overflow: hidden;
   }
-  .wrap { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+
+  /* Full height layout: scrollable top, fixed bottom */
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  /* Scrollable jobs area */
+  .jobs-area {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
+  }
+  .jobs-area::-webkit-scrollbar { width: 6px; }
+  .jobs-area::-webkit-scrollbar-track { background: #f0f2f5; border-radius: 3px; }
+  .jobs-area::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+  .jobs-area::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+  /* Fixed bottom section */
+  .summary-area {
+    flex-shrink: 0;
+  }
 
   /* Job card */
-  .job-card { background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 12px 14px; position: relative; }
+  .job-card { background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 12px 14px; }
   .job-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .job-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280; }
-  .job-num { background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; border-radius: 20px; padding: 2px 8px; margin-left: 6px; }
-  .remove-btn { background: none; border: none; cursor: pointer; color: #d1d5db; font-size: 16px; line-height: 1; padding: 0 2px; transition: color 0.15s; }
+  .job-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+  .job-num { background: #3b82f6; color: #fff; font-size: 10px; font-weight: 700; border-radius: 20px; padding: 2px 8px; }
+  .remove-btn { background: none; border: none; cursor: pointer; color: #d1d5db; font-size: 18px; line-height: 1; padding: 0 2px; transition: color 0.15s; }
   .remove-btn:hover { color: #ef4444; }
 
   .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
@@ -34,7 +62,6 @@
   }
   .field input:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.15); }
 
-  /* Per-job result */
   .job-result { margin-top: 8px; padding: 8px 10px; border-radius: 6px; font-size: 11px; }
   .job-result.empty { background: #f9fafb; border: 1px solid #e5e7eb; color: #9ca3af; text-align: center; }
   .job-result.filled { background: #eff6ff; border: 1px solid #bfdbfe; }
@@ -46,14 +73,14 @@
     background: #fff; border: 1.5px dashed #d1d5db; border-radius: 8px;
     padding: 10px; width: 100%; cursor: pointer; font-size: 12px; font-weight: 600;
     color: #6b7280; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px;
+    flex-shrink: 0;
   }
   .add-btn:hover { border-color: #3b82f6; color: #3b82f6; background: #eff6ff; }
 
-  /* Divider */
-  .divider { border: none; border-top: 1px solid #e5e7eb; margin: 2px 0; }
-
-  /* Stated + total section */
-  .summary-card { background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 12px 14px; }
+  /* Summary card */
+  .summary-card {
+    background: #fff; border: 1px solid #e2e4e8; border-radius: 8px; padding: 12px 14px;
+  }
   .summary-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280; margin-bottom: 10px; }
   .stated-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .stated-row label { font-size: 11px; color: #6b7280; font-weight: 500; white-space: nowrap; }
@@ -66,7 +93,6 @@
   .stated-row input:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.15); }
   .hint { font-size: 10px; color: #9ca3af; margin-top: 3px; }
 
-  /* Total result */
   #total-result { margin-top: 10px; }
   .total-box { border-radius: 7px; padding: 10px 12px; }
   .total-match    { background: #f0fdf4; border: 1px solid #86efac; }
@@ -74,12 +100,11 @@
   .total-neutral  { background: #f9fafb; border: 1px solid #e5e7eb; }
   .total-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
   .total-label { font-size: 11px; color: #6b7280; font-weight: 500; margin-bottom: 2px; }
-  .total-amount { font-size: 24px; font-weight: 700; }
+  .total-amount { font-size: 22px; font-weight: 700; }
   .total-match .total-amount    { color: #15803d; }
   .total-mismatch .total-amount { color: #b91c1c; }
   .total-neutral .total-amount  { color: #111827; }
 
-  /* Job breakdown inside total */
   .job-breakdown { margin-top: 6px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 6px; display: flex; flex-direction: column; gap: 3px; }
   .job-breakdown-row { display: flex; justify-content: space-between; font-size: 11px; color: #6b7280; }
   .job-breakdown-row span { font-weight: 500; color: #374151; }
@@ -92,30 +117,33 @@
   .alert { margin-top: 8px; padding: 7px 10px; border-radius: 5px; font-size: 11px; line-height: 1.55; }
   .alert-warn { background: #fff7ed; border-left: 3px solid #f97316; color: #7c2d12; }
   .alert-ok   { background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
-
   .empty-hint { text-align: center; font-size: 11px; color: #9ca3af; padding: 6px 0; }
 </style>
 </head>
 <body>
-<div class="wrap" id="wrap">
 
-  <div id="jobs-container"></div>
+<div class="layout">
 
-  <button class="add-btn" onclick="addJob()">
-    <span style="font-size:16px;line-height:1">+</span> Add another job
-  </button>
+  <!-- SCROLLABLE JOBS AREA -->
+  <div class="jobs-area" id="jobs-area">
+    <div id="jobs-container"></div>
+    <button class="add-btn" onclick="addJob()">
+      <span style="font-size:16px;line-height:1">+</span> Add another job
+    </button>
+  </div>
 
-  <hr class="divider">
-
-  <div class="summary-card">
-    <div class="summary-title">&#9635; Comparison — Stated vs Calculated</div>
-    <div class="stated-row">
-      <label>Claimant stated TOTAL earnings:</label>
-      <span class="dollar">$</span>
-      <input type="number" id="stated" placeholder="e.g. 10000" min="0" step="1" oninput="updateTotal()">
+  <!-- FIXED SUMMARY AT BOTTOM -->
+  <div class="summary-area">
+    <div class="summary-card">
+      <div class="summary-title">&#9635; Comparison — Stated vs Calculated</div>
+      <div class="stated-row">
+        <label>Claimant stated TOTAL earnings:</label>
+        <span class="dollar">$</span>
+        <input type="number" id="stated" placeholder="e.g. 10000" min="0" step="1" oninput="updateTotal()">
+      </div>
+      <p class="hint">Enter the combined total the claimant stated on the previous step</p>
+      <div id="total-result"><div class="empty-hint">Fill in job details above to see totals</div></div>
     </div>
-    <p class="hint">Enter the combined total the claimant stated on the previous step</p>
-    <div id="total-result"><div class="empty-hint">Fill in job details above to see totals</div></div>
   </div>
 
 </div>
@@ -136,7 +164,7 @@ function addJob() {
   div.innerHTML =
     '<div class="job-header">' +
       '<div class="job-title">&#9635; Job <span class="job-num">' + id + '</span></div>' +
-      (id > 1 ? '<button class="remove-btn" onclick="removeJob(' + id + ')" title="Remove job">&times;</button>' : '<span></span>') +
+      (id > 1 ? '<button class="remove-btn" onclick="removeJob(' + id + ')" title="Remove">&times;</button>' : '<span></span>') +
     '</div>' +
     '<div class="grid3">' +
       '<div class="field"><label>Pay rate ($/hr)</label><input type="number" id="rate-'+id+'" placeholder="e.g. 15.00" min="0" step="0.01" oninput="calcJob('+id+')"></div>' +
@@ -150,6 +178,13 @@ function addJob() {
     '<div id="result-'+id+'" class="job-result empty">Enter details above to calculate this job</div>';
 
   container.appendChild(div);
+
+  // Auto scroll to new job
+  setTimeout(function() {
+    var area = document.getElementById('jobs-area');
+    area.scrollTop = area.scrollHeight;
+  }, 50);
+
   updateTotal();
 }
 
@@ -181,12 +216,12 @@ function calcJob(id) {
     jobs[id] = { calc: 0, valid: false };
     updateTotal(); return;
   }
-  var weeks = (e - s) / (7*24*60*60*1000);
-  var hours = Math.round(weeks * dpw * hpd);
-  var total = Math.round(rate * weeks * dpw * hpd);
+  var weeks  = (e - s) / (7*24*60*60*1000);
+  var hours  = Math.round(weeks * dpw * hpd);
+  var total  = Math.round(rate * weeks * dpw * hpd);
   var weeksR = Math.round(weeks * 10) / 10;
 
-  jobs[id] = { calc: total, valid: true, label: 'Job ' + id };
+  jobs[id] = { calc: total, valid: true };
 
   el.className = 'job-result filled';
   el.innerHTML =
@@ -227,19 +262,14 @@ function updateTotal() {
     breakdownHTML += '</div>';
   }
 
+  var html = '';
   if (!isNaN(stated) && stated > 0) {
     var diff = Math.abs(grandTotal - stated);
     var pct  = Math.round((diff / grandTotal) * 100);
     var ok   = pct <= 5;
-    var cardClass = ok ? 'total-match' : 'total-mismatch';
-    var badgeClass = ok ? 'badge-match' : 'badge-mismatch';
-    var badgeText  = ok ? '✓ Amounts match' : '✗ Mismatch — review';
-
-    var html = '<div class="total-box ' + cardClass + '">';
-    html += '<div class="total-top">';
-    html += '<div><div class="total-label">Total calculated earnings</div><div class="total-amount">$' + grandTotal.toLocaleString() + '</div></div>';
-    html += '<span class="status-badge ' + badgeClass + '">' + badgeText + '</span>';
-    html += '</div>';
+    html += '<div class="total-box ' + (ok ? 'total-match' : 'total-mismatch') + '">';
+    html += '<div class="total-top"><div><div class="total-label">Total calculated earnings</div><div class="total-amount">$' + grandTotal.toLocaleString() + '</div></div>';
+    html += '<span class="status-badge ' + (ok ? 'badge-match' : 'badge-mismatch') + '">' + (ok ? '✓ Amounts match' : '✗ Mismatch — review') + '</span></div>';
     html += breakdownHTML;
     if (!ok) {
       var dir = grandTotal > stated ? 'understated' : 'overstated';
@@ -248,18 +278,14 @@ function updateTotal() {
       html += '<div class="alert alert-ok">Stated amount of <strong>$' + stated.toLocaleString() + '</strong> is consistent with all jobs combined. Safe to continue.</div>';
     }
     html += '</div>';
-    el.innerHTML = html;
   } else {
-    var html = '<div class="total-box total-neutral">';
-    html += '<div class="total-top"><div><div class="total-label">Total calculated earnings</div><div class="total-amount">$' + grandTotal.toLocaleString() + '</div></div>';
+    html += '<div class="total-box total-neutral"><div class="total-top"><div><div class="total-label">Total calculated earnings</div><div class="total-amount">$' + grandTotal.toLocaleString() + '</div></div>';
     html += '<span class="status-badge badge-neutral">Enter stated amount</span></div>';
-    html += breakdownHTML;
-    html += '</div>';
-    el.innerHTML = html;
+    html += breakdownHTML + '</div>';
   }
+  el.innerHTML = html;
 }
 
-// Start with one job by default
 addJob();
 </script>
 </body>
